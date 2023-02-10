@@ -16,7 +16,7 @@ class FaviconHasher(AppBase):
     def __init__(self, redis, logger, console_logger=None):
         super().__init__(redis, logger, console_logger)
 
-    def validateUri(uri):
+    def validateUri(self, uri):
         try:
             result = urlparse(uri)
             return all([result.scheme, result.netloc])
@@ -24,9 +24,8 @@ class FaviconHasher(AppBase):
             return False
 
     def create_hash(self, domain):
-
         uri = "".join([self.scheme, domain, self.favicon])
-        if validateuri(uri):
+        if self.validateUri(uri):
             try:
                 resp = requests.get(uri)
                 favicon = codecs.encode(resp.content,"base64")
@@ -44,7 +43,6 @@ class FaviconHasher(AppBase):
                     "reason": "Malformatted URI",
                     "details": f"URI: {uri}"
                 }
-
 
 if __name__ == "__main__":
     FaviconHasher.run()

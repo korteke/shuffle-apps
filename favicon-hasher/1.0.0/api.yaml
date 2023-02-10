@@ -13,7 +13,7 @@ actions:
   - name: create_hash
     description: Create MMH3 hash from favicon
     parameters:
-      - name: url 
+      - name: domain 
         description: Domain which contains favicon.ico
         required: true
         multiline: false 
